@@ -202,7 +202,7 @@ static esp_err_t get_mode_handler(httpd_req_t *req) {
 
 // GET /  → sirve el HTML desde SPIFFS
 static esp_err_t root_handler(httpd_req_t *req) {
-    FILE *f = fopen("/Datos/index.html", "r");
+    FILE *f = fopen("/Datos/Dimmer.html", "r");
     if (!f) {
         httpd_resp_set_status(req, "404 Not Found");
         httpd_resp_sendstr(req, "index.html no encontrado en SPIFFS");
