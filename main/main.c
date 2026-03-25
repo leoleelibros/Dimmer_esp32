@@ -32,13 +32,13 @@ volatile int selected_index = 0;
 int delay_len = 37;
 
 static const uint32_t delays[37] = {
-    10,   231,  463,  694,  926,
+    40,   231,  463,  694,  926,
     1157, 1389, 1620, 1852, 2083,
     2315, 2546, 2778, 3009, 3241,
     3472, 3704, 3935, 4167, 4398,
     4630, 4861, 5093, 5324, 5556,
     5787, 6019, 6250, 6481, 6713,
-    6944, 7176, 7407, 7639, 7870, 8101, 8250
+    6944, 7176, 7407, 7639, 7870, 8000, 8220
 };
 
 static gptimer_handle_t timer;
@@ -53,13 +53,24 @@ static httpd_handle_t start_webserver(void);
 
 // ── ISR: Cruce por Cero ──────────────────────────────────────────
 static void IRAM_ATTR gpio_isr_handler(void *arg) {
+    if (selected_index==0){
+    gpio_set_level(alpha, 1);
+        
+    }
+    else if (selected_index == 36){
+        gpio_set_level(alpha, 0);
+    }
+    else{
+
+    
     gptimer_alarm_config_t alarma = {
-        .alarm_count = delays[selected_index],
+        .alarm_count = delays[selected_index]-60,
         .flags.auto_reload_on_alarm = false
     };
     gptimer_set_alarm_action(timer, &alarma);
     gptimer_set_raw_count(timer, 0);
     gptimer_start(timer);
+}
 }
 
 // ── ISR: Timer → disparo TRIAC ───────────────────────────────────
@@ -114,7 +125,7 @@ void setup_timer(void) {
 // ── ISR del cruce por cero ───────────────────────────────────────
 void setup_isr(void) {
     gpio_set_direction(zerocross, GPIO_MODE_INPUT);
-    gpio_set_intr_type(zerocross, GPIO_INTR_POSEDGE);
+    gpio_set_intr_type(zerocross, GPIO_INTR_NEGEDGE);
     gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);
     gpio_isr_handler_add(zerocross, gpio_isr_handler, NULL);
 }
@@ -145,6 +156,8 @@ void Selector_Task(void *pvParameters) {
 
 // GET /set-angle?val=0..36
 static esp_err_t set_angle_handler(httpd_req_t *req) {
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");    
+    httpd_resp_set_type(req, "text/plain");                     
     if (!web_mode) {
         // Rechazar si no estamos en modo web
         httpd_resp_set_status(req, "403 Forbidden");
@@ -172,6 +185,8 @@ static esp_err_t set_angle_handler(httpd_req_t *req) {
 
 // GET /set-mode?mode=web  o  /set-mode?mode=encoder
 static esp_err_t set_mode_handler(httpd_req_t *req) {
+    httpd_resp_set_hdr(req, "Content-Type", "text/plain");   // ← agrega
+    httpd_resp_set_type(req, "text/plain");                     
     char buf[32];
     if (httpd_req_get_url_query_str(req, buf, sizeof(buf)) == ESP_OK) {
         char mode_str[16];
@@ -196,6 +211,8 @@ static esp_err_t set_mode_handler(httpd_req_t *req) {
 
 // GET /get-mode  → responde "web" o "encoder" (para que la UI sincronice al cargar)
 static esp_err_t get_mode_handler(httpd_req_t *req) {
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");  // ← agrega
+    httpd_resp_set_type(req, "text/plain");                     
     httpd_resp_sendstr(req, web_mode ? "web" : "encoder");
     return ESP_OK;
 }
@@ -305,8 +322,8 @@ static void WiFi_STA_Initialization(void) {
 
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid     = "nombrewifi",
-            .password = "contrawifi"
+            .ssid     = "POCOleo",
+            .password = "chochocrusher"
         }
     };
     esp_wifi_set_mode(WIFI_MODE_STA);

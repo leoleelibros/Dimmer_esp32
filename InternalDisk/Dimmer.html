@@ -16,8 +16,6 @@
             --accent2:   #ff9d00;
             --danger:    #ff2d55;
             --ok:        #00e5a0;
-            --track-bg:  #1a1a28;
-            --track-fill:#ff6a00;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,239 +30,92 @@
             align-items: center;
             justify-content: center;
             padding: 24px;
-            /* Subtle grid texture */
             background-image:
                 linear-gradient(rgba(255,106,0,0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255,106,0,0.03) 1px, transparent 1px);
             background-size: 32px 32px;
         }
 
-        /* ── Header ── */
-        header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+        header { text-align: center; margin-bottom: 32px; }
         header h1 {
             font-family: 'VT323', monospace;
-            font-size: 2.6rem;
-            color: #fff;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            font-size: 2.6rem; color: #fff;
+            letter-spacing: 4px; text-transform: uppercase;
         }
-        header p {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            letter-spacing: 2px;
-            margin-top: 4px;
-        }
+        header p { font-size: 0.7rem; color: var(--text-dim); letter-spacing: 2px; margin-top: 4px; }
 
-        /* ── Card ── */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 32px 28px;
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 28px;
+            width: 100%; max-width: 400px;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 28px;
             box-shadow: 0 0 60px rgba(255,106,0,0.04), 0 2px 40px rgba(0,0,0,0.6);
         }
 
-        /* ── Round Slider ── */
-        .slider-wrap {
-            position: relative;
-            width: 240px;
-            height: 240px;
-        }
+        .slider-wrap { position: relative; width: 240px; height: 240px; }
+        canvas#dial  { display: block; }
 
-        canvas#dial {
-            display: block;
-        }
-
-        /* Center readout */
         .dial-center {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            gap: 2px;
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            pointer-events: none; gap: 2px;
         }
-        .dial-angle {
-            font-family: 'VT323', monospace;
-            font-size: 3.8rem;
-            color: #fff;
-            line-height: 1;
-            letter-spacing: 2px;
-        }
-        .dial-unit {
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        .dial-raw {
-            font-size: 0.6rem;
-            color: var(--accent);
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
+        .dial-angle { font-family: 'VT323', monospace; font-size: 3.8rem; color: #fff; line-height: 1; letter-spacing: 2px; }
+        .dial-unit  { font-size: 0.65rem; color: var(--text-dim); letter-spacing: 3px; text-transform: uppercase; }
+        .dial-raw   { font-size: 0.6rem; color: var(--accent); letter-spacing: 1px; margin-top: 4px; }
 
-        /* ── Preset Buttons ── */
-        .presets {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            width: 100%;
-        }
+        .presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; }
         .btn-preset {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-dim);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.72rem;
-            padding: 8px 4px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.15s;
-            text-align: center;
-            letter-spacing: 1px;
+            background: transparent; border: 1px solid var(--border);
+            color: var(--text-dim); font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem; padding: 8px 4px; border-radius: 6px;
+            cursor: pointer; transition: all 0.15s; text-align: center; letter-spacing: 1px;
         }
-        .btn-preset:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(255,106,0,0.06);
-        }
-        .btn-preset.active {
-            border-color: var(--accent);
-            background: rgba(255,106,0,0.12);
-            color: var(--accent2);
-            box-shadow: 0 0 8px rgba(255,106,0,0.2);
-        }
+        .btn-preset:hover    { border-color: var(--accent); color: var(--accent); background: rgba(255,106,0,0.06); }
+        .btn-preset.active   { border-color: var(--accent); background: rgba(255,106,0,0.12); color: var(--accent2); box-shadow: 0 0 8px rgba(255,106,0,0.2); }
+        .btn-preset:disabled { opacity: 0.35; cursor: not-allowed; }
 
-        /* ── Send Button ── */
-        .btn-send {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #c94400, #ff6a00);
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.15s;
-            box-shadow: 0 4px 20px rgba(255,106,0,0.25);
-        }
-        .btn-send:hover { filter: brightness(1.1); transform: translateY(-1px); }
-        .btn-send:active { transform: scale(0.98) translateY(0); }
-
-        /* ── Status log ── */
-        .log {
-            font-size: 0.68rem;
-            color: var(--text-dim);
-            letter-spacing: 1px;
-            text-align: center;
-            min-height: 1.2em;
-            transition: color 0.3s;
-        }
+        .log { font-size: 0.68rem; color: var(--text-dim); letter-spacing: 1px; text-align: center; min-height: 1.2em; transition: color 0.3s; }
         .log.ok  { color: var(--ok); }
         .log.err { color: var(--danger); }
 
-        /* ── Divider ── */
-        .divider {
-            width: 100%;
-            height: 1px;
-            background: var(--border);
-        }
+        .divider { width: 100%; height: 1px; background: var(--border); }
 
-        /* ── Mode Toggle ── */
         .mode-toggle {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #0a0a10;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px 14px;
-            gap: 12px;
+            width: 100%; display: flex; align-items: center;
+            justify-content: space-between; background: #0a0a10;
+            border: 1px solid var(--border); border-radius: 10px;
+            padding: 10px 14px; gap: 12px;
         }
-        .mode-label {
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-        .mode-label span {
-            display: block;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            margin-top: 2px;
-        }
+        .mode-label { font-size: 0.65rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; white-space: nowrap; }
+        .mode-label span { display: block; font-size: 0.75rem; letter-spacing: 1px; margin-top: 2px; }
         .mode-label span.mode-web     { color: var(--ok); }
         .mode-label span.mode-encoder { color: var(--accent); }
 
-        /* Pill switch */
-        .switch {
-            position: relative;
-            width: 56px;
-            height: 28px;
-            flex-shrink: 0;
-        }
+        .switch { position: relative; width: 56px; height: 28px; flex-shrink: 0; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .switch-track {
-            position: absolute;
-            inset: 0;
-            background: #1a1a28;
-            border: 1px solid #333;
-            border-radius: 14px;
-            cursor: pointer;
+            position: absolute; inset: 0; background: #1a1a28;
+            border: 1px solid #333; border-radius: 14px; cursor: pointer;
             transition: background 0.25s, border-color 0.25s;
         }
         .switch-track::after {
-            content: '';
-            position: absolute;
-            width: 20px; height: 20px;
-            top: 3px; left: 3px;
-            background: var(--accent);
-            border-radius: 50%;
+            content: ''; position: absolute;
+            width: 20px; height: 20px; top: 3px; left: 3px;
+            background: var(--accent); border-radius: 50%;
             transition: transform 0.25s, background 0.25s;
             box-shadow: 0 0 6px rgba(255,106,0,0.5);
         }
-        .switch input:checked + .switch-track {
-            background: rgba(0,229,160,0.12);
-            border-color: var(--ok);
-        }
-        .switch input:checked + .switch-track::after {
-            transform: translateX(28px);
-            background: var(--ok);
-            box-shadow: 0 0 6px rgba(0,229,160,0.5);
-        }
+        .switch input:checked + .switch-track              { background: rgba(0,229,160,0.12); border-color: var(--ok); }
+        .switch input:checked + .switch-track::after       { transform: translateX(28px); background: var(--ok); box-shadow: 0 0 6px rgba(0,229,160,0.5); }
 
-        /* Slider disabled state */
         .slider-wrap.disabled { opacity: 0.35; pointer-events: none; }
-        .btn-preset:disabled  { opacity: 0.35; cursor: not-allowed; }
-        .btn-send:disabled    { opacity: 0.35; cursor: not-allowed; }
 
-        /* ── Waveform hint ── */
-        .wave-hint {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.62rem;
-            color: var(--text-dim);
-            letter-spacing: 1px;
-        }
+        .wave-hint { width: 100%; display: flex; align-items: center; gap: 12px; font-size: 0.62rem; color: var(--text-dim); letter-spacing: 1px; }
         .wave-hint svg { flex-shrink: 0; }
     </style>
 </head>
@@ -277,7 +128,6 @@
 
 <div class="card">
 
-    <!-- Round Slider -->
     <div class="slider-wrap">
         <canvas id="dial" width="240" height="240"></canvas>
         <div class="dial-center">
@@ -287,21 +137,19 @@
         </div>
     </div>
 
-    <!-- Presets -->
     <div class="presets">
-        <button class="btn-preset" onclick="setAngle(0)">0°<br><span style="color:#555;font-size:0.6rem">OFF</span></button>
-        <button class="btn-preset" onclick="setAngle(60)">60°<br><span style="color:#555;font-size:0.6rem">25%</span></button>
-        <button class="btn-preset" onclick="setAngle(90)">90°<br><span style="color:#555;font-size:0.6rem">50%</span></button>
-        <button class="btn-preset" onclick="setAngle(180)">180°<br><span style="color:#555;font-size:0.6rem">MAX</span></button>
+        <button class="btn-preset" onclick="setAngleAndSend(0)">0°<br><span style="color:#555;font-size:0.6rem">OFF</span></button>
+        <button class="btn-preset" onclick="setAngleAndSend(60)">60°<br><span style="color:#555;font-size:0.6rem">25%</span></button>
+        <button class="btn-preset" onclick="setAngleAndSend(90)">90°<br><span style="color:#555;font-size:0.6rem">50%</span></button>
+        <button class="btn-preset" onclick="setAngleAndSend(180)">180°<br><span style="color:#555;font-size:0.6rem">MAX</span></button>
     </div>
 
     <div class="divider"></div>
 
-    <!-- Mode Toggle -->
     <div class="mode-toggle">
         <div class="mode-label">
             Control
-            <span id="modeText" class="mode-encoder">ENCODER</span>
+            <span id="modeText" class="mode-encoder">ENCODER ✓</span>
         </div>
         <label class="switch" title="Cambiar modo de control">
             <input type="checkbox" id="modeSwitch" onchange="toggleMode(this.checked)">
@@ -315,10 +163,8 @@
 
     <div class="divider"></div>
 
-    <!-- Waveform hint -->
     <div class="wave-hint">
         <svg width="60" height="28" viewBox="0 0 60 28">
-            <!-- AC sine hint + firing angle marker -->
             <path d="M0 14 Q7.5 2 15 14 Q22.5 26 30 14 Q37.5 2 45 14 Q52.5 26 60 14"
                   fill="none" stroke="#333" stroke-width="1.5"/>
             <line id="firingLine" x1="15" y1="4" x2="15" y2="24"
@@ -327,145 +173,118 @@
         <span id="waveLabel">Ángulo de disparo: 90° → Potencia media</span>
     </div>
 
-
     <div class="log" id="statusLog">> Sistema listo. Esperando...</div>
 </div>
 
 <script>
-
-
     // ── State ──
-    let currentAngleDeg = 90; // Visual: 0–180
-    let isDragging = false;
+    let currentAngleDeg = 90;
+    let lastSentAngle   = -1;
+    let isDragging      = false;
+    let isWebMode       = false;
 
-    // ── Mapping ──
-    // Visual range: 0–180°  →  ESP raw: 0–37
-    function degToRaw(deg) {
-        return Math.round((deg / 180) * 37);
+    // ── Snap a múltiplos de 5 ──
+    function snap5(val) {
+        return Math.round(val / 5) * 5;
     }
 
-    // ── Canvas Dial ──
+    // ── Mapping: 0°=índice 0, 5°=índice 1, ..., 180°=índice 36
+    //    Coincide exactamente con tu array delays[] del ESP32
+    function degToRaw(deg) {
+        return Math.round(deg / 5);
+    }
+
+    // ── Canvas ──
     const canvas = document.getElementById('dial');
-    const ctx = canvas.getContext('2d');
+    const ctx    = canvas.getContext('2d');
     const cx = 120, cy = 120, R = 100;
+    const ARC_START_DEG = 150;
+    const ARC_END_DEG   = 30;
 
-    // The arc goes from 210° to 330° (150° sweep clockwise)
-    // Mapped to visual 0–180
-    const ARC_START_DEG = 150;   // 6 o'clock left  (in standard canvas coords)
-    const ARC_END_DEG   = 30;    // 6 o'clock right
-    // In radians:
-    const startRad = () => (ARC_START_DEG) * Math.PI / 180;
-    const endRad   = () => (ARC_END_DEG  ) * Math.PI / 180;
-
-    // Convert visual angle (0–180) to canvas angle (radians)
     function valToRad(val) {
-        // val 0 → startRad, val 180 → endRad (going clockwise)
-        const sweep = (360 - ARC_START_DEG + ARC_END_DEG) * Math.PI / 180; // ~240°
+        const sweep = (360 - ARC_START_DEG + ARC_END_DEG) * Math.PI / 180;
         return (ARC_START_DEG * Math.PI / 180) + (val / 180) * sweep;
     }
 
     function drawDial(val) {
         ctx.clearRect(0, 0, 240, 240);
-
-        const sRad = ARC_START_DEG * Math.PI / 180;
-        const eRad = ARC_END_DEG   * Math.PI / 180;
+        const sRad     = ARC_START_DEG * Math.PI / 180;
+        const eRad     = ARC_END_DEG   * Math.PI / 180;
         const thumbRad = valToRad(val);
 
-        // Track background
+        // Track fondo
         ctx.beginPath();
         ctx.arc(cx, cy, R, sRad, eRad, false);
-        ctx.strokeStyle = '#1a1a28';
-        ctx.lineWidth = 14;
-        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#1a1a28'; ctx.lineWidth = 14; ctx.lineCap = 'round';
         ctx.stroke();
 
-        // Filled arc (orange gradient)
-        const grad = ctx.createLinearGradient(
-            cx + R * Math.cos(sRad), cy + R * Math.sin(sRad),
-            cx + R * Math.cos(thumbRad), cy + R * Math.sin(thumbRad)
-        );
-        grad.addColorStop(0, '#c94400');
-        grad.addColorStop(1, '#ffaa00');
+        // Arco relleno
+        if (val > 0) {
+            const grad = ctx.createLinearGradient(
+                cx + R * Math.cos(sRad), cy + R * Math.sin(sRad),
+                cx + R * Math.cos(thumbRad), cy + R * Math.sin(thumbRad)
+            );
+            grad.addColorStop(0, '#c94400');
+            grad.addColorStop(1, '#ffaa00');
+            ctx.beginPath();
+            ctx.arc(cx, cy, R, sRad, thumbRad, false);
+            ctx.strokeStyle = grad; ctx.lineWidth = 14; ctx.lineCap = 'round';
+            ctx.stroke();
+        }
 
-        ctx.beginPath();
-        ctx.arc(cx, cy, R, sRad, thumbRad, false);
-        ctx.strokeStyle = val > 0 ? grad : 'transparent';
-        ctx.lineWidth = 14;
-        ctx.lineCap = 'round';
-        ctx.stroke();
-
-        // Tick marks
-        for (let t = 0; t <= 180; t += 15) {
-            const tr = valToRad(t);
-            const isMain = (t % 45 === 0);
-            const innerR = isMain ? R - 22 : R - 16;
+        // Ticks cada 5° (los múltiplos de 15 son más largos)
+        for (let t = 0; t <= 180; t += 5) {
+            const tr     = valToRad(t);
+            const isMain = (t % 15 === 0);
+            const innerR = isMain ? R - 22 : R - 12;
             ctx.beginPath();
             ctx.moveTo(cx + R * Math.cos(tr), cy + R * Math.sin(tr));
             ctx.lineTo(cx + innerR * Math.cos(tr), cy + innerR * Math.sin(tr));
-            ctx.strokeStyle = t <= val ? 'rgba(255,150,0,0.4)' : '#222230';
-            ctx.lineWidth = isMain ? 2 : 1;
+            ctx.strokeStyle = t <= val ? 'rgba(255,150,0,0.5)' : '#222230';
+            ctx.lineWidth   = isMain ? 2 : 1;
             ctx.stroke();
         }
 
         // Thumb
         const tx = cx + R * Math.cos(thumbRad);
         const ty = cy + R * Math.sin(thumbRad);
-
-        // Glow
-        ctx.beginPath();
-        ctx.arc(tx, ty, 13, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255,106,0,0.18)';
-        ctx.fill();
-
-        // Thumb circle
-        ctx.beginPath();
-        ctx.arc(tx, ty, 9, 0, Math.PI * 2);
-        ctx.fillStyle = '#ff6a00';
-        ctx.shadowColor = '#ff6a00';
-        ctx.shadowBlur = 14;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(tx, ty, 13, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,106,0,0.18)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(tx, ty, 9, 0, Math.PI * 2);
+        ctx.fillStyle = '#ff6a00'; ctx.shadowColor = '#ff6a00'; ctx.shadowBlur = 14; ctx.fill();
         ctx.shadowBlur = 0;
-
-        // Inner dot
-        ctx.beginPath();
-        ctx.arc(tx, ty, 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(tx, ty, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff'; ctx.fill();
     }
 
-    // ── Hit-test: is point near thumb? ──
     function pointNearThumb(px, py) {
         const tr = valToRad(currentAngleDeg);
-        const tx = cx + R * Math.cos(tr);
-        const ty = cy + R * Math.sin(tr);
-        const dx = px - tx, dy = py - ty;
-        return Math.sqrt(dx*dx + dy*dy) < 22;
+        return Math.hypot(px - (cx + R * Math.cos(tr)), py - (cy + R * Math.sin(tr))) < 22;
     }
 
-    // ── Convert mouse/touch position to angle value ──
     function posToAngle(px, py) {
         const rect = canvas.getBoundingClientRect();
-        const x = px - rect.left - cx;
-        const y = py - rect.top  - cy;
-        let angle = Math.atan2(y, x) * 180 / Math.PI;
+        let angle  = Math.atan2(py - rect.top - cy, px - rect.left - cx) * 180 / Math.PI;
         if (angle < 0) angle += 360;
-
-        // Map canvas angle back to val 0–180
-        const sweep = 360 - ARC_START_DEG + ARC_END_DEG; // 240
-        let relative = angle - ARC_START_DEG;
+        const sweep    = 360 - ARC_START_DEG + ARC_END_DEG;
+        let   relative = angle - ARC_START_DEG;
         if (relative < 0) relative += 360;
-        if (relative > sweep) {
-            relative = relative < sweep + (360 - sweep) / 2 ? sweep : 0;
-        }
-        return Math.round(Math.min(180, Math.max(0, (relative / sweep) * 180)));
+        if (relative > sweep) relative = relative < sweep + (360 - sweep) / 2 ? sweep : 0;
+        return snap5(Math.min(180, Math.max(0, (relative / sweep) * 180)));
     }
 
     function setAngle(val, skipPreset) {
-        currentAngleDeg = Math.min(180, Math.max(0, val));
+        currentAngleDeg = snap5(Math.min(180, Math.max(0, val)));
         drawDial(currentAngleDeg);
         updateReadout();
         if (!skipPreset) updatePresets();
         updateWaveHint();
+    }
+
+    // Presets: actualiza y envía inmediatamente si modo web
+    function setAngleAndSend(val) {
+        setAngle(val);
+        if (isWebMode) sendAngle();
     }
 
     function updateReadout() {
@@ -475,8 +294,7 @@
 
     function updatePresets() {
         document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
-        const presetAngles = [0, 60, 90, 180];
-        presetAngles.forEach((a, i) => {
+        [0, 60, 90, 180].forEach((a, i) => {
             if (a === currentAngleDeg)
                 document.querySelectorAll('.btn-preset')[i].classList.add('active');
         });
@@ -484,33 +302,25 @@
 
     function updateWaveHint() {
         const pct = Math.round((currentAngleDeg / 180) * 100);
-        const label = document.getElementById('waveLabel');
-        const line  = document.getElementById('firingLine');
-
-        // Move firing line proportionally across the SVG (x: 0–60)
-        const lx = Math.round((currentAngleDeg / 180) * 60);
-        line.setAttribute('x1', lx);
-        line.setAttribute('x2', lx);
-
+        const lx  = Math.round((currentAngleDeg / 180) * 60);
+        document.getElementById('firingLine').setAttribute('x1', lx);
+        document.getElementById('firingLine').setAttribute('x2', lx);
         let desc;
-        if (currentAngleDeg === 0)       desc = 'Sin disparo → Carga apagada';
+        if      (currentAngleDeg === 0)  desc = 'Sin disparo → Carga apagada';
         else if (currentAngleDeg <= 45)  desc = `Disparo temprano → ~${pct}% potencia`;
         else if (currentAngleDeg <= 135) desc = `Ángulo medio → ~${pct}% potencia`;
-        else if (currentAngleDeg < 180)    desc = `Disparo tardío → ~ ${pct}% potencia`;
-	else desc = `Disparo tardío → ~ 0% potencia`;
-        label.textContent = `Ángulo de disparo: ${currentAngleDeg}° → ${desc}`;
+        else if (currentAngleDeg < 180)  desc = `Disparo tardío → ~${pct}% potencia`;
+        else                             desc = 'Disparo máximo → ~0% potencia';
+        document.getElementById('waveLabel').textContent = `Ángulo de disparo: ${currentAngleDeg}° → ${desc}`;
     }
 
     // ── Pointer events ──
     canvas.addEventListener('pointerdown', e => {
-        const rect = canvas.getBoundingClientRect();
         if (pointNearThumb(e.clientX, e.clientY)) {
             isDragging = true;
             canvas.setPointerCapture(e.pointerId);
         } else {
-            // Also allow clicking anywhere on the arc
-            const v = posToAngle(e.clientX, e.clientY);
-            setAngle(v);
+            setAngle(posToAngle(e.clientX, e.clientY));
             isDragging = true;
             canvas.setPointerCapture(e.pointerId);
         }
@@ -518,64 +328,54 @@
 
     canvas.addEventListener('pointermove', e => {
         if (!isDragging) return;
-        const v = posToAngle(e.clientX, e.clientY);
-        setAngle(v, true);
+        setAngle(posToAngle(e.clientX, e.clientY), true);
     });
 
     canvas.addEventListener('pointerup', () => {
         isDragging = false;
         updatePresets();
+        // Enviar solo si modo web y el valor cambió desde el último envío
+        if (isWebMode && currentAngleDeg !== lastSentAngle) {
+            sendAngle();
+        }
     });
-    // ── Modo: Encoder / Web ──────────────────────────────────────────
-    let isWebMode = false;
-    let sendInterval = null;
 
+    // ── Modo Encoder / Web ──
     function applyModeUI(webMode) {
-        const sliderWrap  = document.querySelector('.slider-wrap');
-        const presetBtns  = document.querySelectorAll('.btn-preset');
-        const sendBtn     = document.querySelector('.btn-send');
-        const modeText    = document.getElementById('modeText');
-        const modeTextR   = document.getElementById('modeTextRight');
-
+        const sliderWrap = document.querySelector('.slider-wrap');
+        const presetBtns = document.querySelectorAll('.btn-preset');
+        const modeText   = document.getElementById('modeText');
+        const modeTextR  = document.getElementById('modeTextRight');
         if (webMode) {
             sliderWrap.classList.remove('disabled');
             presetBtns.forEach(b => b.disabled = false);
-            sendBtn.disabled = false;
-            modeText.textContent  = 'ENCODER';
-            modeText.className    = 'mode-encoder';
-            modeTextR.textContent = 'WEB ✓';
-            modeTextR.className   = 'mode-web';
-            // Envío periódico cada 200ms mientras estamos en modo web
-            if (!sendInterval) sendInterval = setInterval(sendAngle, 200);
+            modeText.textContent  = 'ENCODER';   modeText.className  = 'mode-encoder';
+            modeTextR.textContent = 'WEB ✓';     modeTextR.className = 'mode-web';
         } else {
             sliderWrap.classList.add('disabled');
             presetBtns.forEach(b => b.disabled = true);
-            sendBtn.disabled = true;
-            modeText.textContent  = 'ENCODER ✓';
-            modeText.className    = 'mode-encoder';
-            modeTextR.textContent = 'WEB';
-            modeTextR.className   = 'mode-web';
-            if (sendInterval) { clearInterval(sendInterval); sendInterval = null; }
+            modeText.textContent  = 'ENCODER ✓'; modeText.className  = 'mode-encoder';
+            modeTextR.textContent = 'WEB';        modeTextR.className = 'mode-web';
         }
     }
 
     function toggleMode(checked) {
-        const newMode = checked ? 'web' : 'encoder';
-        fetch(`/set-mode?mode=${newMode}`)
+        fetch(`/set-mode?mode=${checked ? 'web' : 'encoder'}`)
             .then(r => r.text())
             .then(resp => {
                 isWebMode = (resp.trim() === 'web');
+                document.getElementById('modeSwitch').checked = isWebMode;
                 applyModeUI(isWebMode);
-                log(isWebMode ? 'Modo WEB activo — encoder ignorado' : 'Modo ENCODER activo', isWebMode ? 'ok' : '');
+                log(isWebMode ? 'Modo WEB activo — mueve el dial para enviar' : 'Modo ENCODER activo', isWebMode ? 'ok' : '');
             })
             .catch(() => {
-                // Revert switch si falla la comunicación
                 document.getElementById('modeSwitch').checked = isWebMode;
                 log('Error al cambiar modo — sin conexión', 'err');
             });
     }
 
-    // Al cargar, consultar el modo actual del ESP32
+    // Al cargar: UI bloqueada hasta recibir respuesta del ESP32
+    applyModeUI(false);
     fetch('/get-mode')
         .then(r => r.text())
         .then(resp => {
@@ -584,29 +384,28 @@
             applyModeUI(isWebMode);
         })
         .catch(() => {
-            // Sin conexión: arrancar en modo encoder (UI bloqueada)
             applyModeUI(false);
             log('Sin conexión con ESP32', 'err');
         });
 
-    // ── Log helper ──
+    // ── Log ──
     function log(msg, type = '') {
         const el = document.getElementById('statusLog');
         el.textContent = `> ${msg}`;
-        el.className = `log ${type}`;
+        el.className   = `log ${type}`;
     }
 
-    // ── Send to ESP32 ──
+    // ── Enviar al ESP32 ──
     function sendAngle() {
         const raw = degToRaw(currentAngleDeg);
-        log(`Enviando ángulo ${currentAngleDeg}° (raw=${raw})...`);
-
+        lastSentAngle = currentAngleDeg;
+        log(`Enviando ${currentAngleDeg}° (raw=${raw})...`);
         fetch(`/set-angle?val=${raw}`)
             .then(r => {
-                if (r.ok) log(`Ángulo ${currentAngleDeg}° (raw=${raw}) enviado ✓`, 'ok');
+                if (r.ok) log(`${currentAngleDeg}° (raw=${raw}) enviado ✓`, 'ok');
                 else      log(`Error HTTP ${r.status}`, 'err');
             })
-            .catch(() => log(`Sin conexión con ESP32 — raw=${raw}`, 'err'));
+            .catch(() => log(`Sin conexión — raw=${raw}`, 'err'));
     }
 
     // ── Init ──
